@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.corinto.dsmeta.entities.Sale;
 import com.corinto.dsmeta.services.SaleService;
-//import com.corinto.dsmeta.services.SmsService;
+import com.corinto.dsmeta.services.SmsService;
 
 @RestController
 @RequestMapping(value = "/sales")
@@ -20,9 +20,9 @@ public class SaleController {
 	@Autowired
 	private SaleService service;
 	
-//	@Autowired
-//	private SmsService smsService;
-//	
+	@Autowired
+	private SmsService smsService;
+	
 	@GetMapping
 	public Page<Sale> findSales(
 			@RequestParam(value="minDate", defaultValue = "") String minDate, 
@@ -31,8 +31,8 @@ public class SaleController {
 		return service.findSales(minDate, maxDate, pageable);
 	}
 	
-//	@GetMapping("/{id}/notification")
-//	public void notifySms(@PathVariable Long id) {
-//		smsService.sendSms(id);
-//	}
+	@GetMapping("/{id}/notification")
+	public void notifySms(@PathVariable Long id) {
+		smsService.sendSms(id);
+	}
 }
